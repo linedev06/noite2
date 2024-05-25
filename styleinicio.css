@@ -50,17 +50,22 @@ body {
 }
 
 #conteudo1 {
-
-
-    background-position: center;
     margin-left: -100px;
-
-
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
 }
+
+#conteudo1 img {
+    margin-left: 70px;
+    width: 412px;
+    height: 415px;
+    object-fit: cover; 
+     }
 #conteudo2{
     border: 2px solid;
     height: 200px;
-    margin-left: 130px;
+    margin-left: 60px;
     border-radius: 20px;
     margin-top: 30px;
     width: 280px;
@@ -69,7 +74,7 @@ body {
 #conteudo3{
     border: 2px solid;
     height: 200px;
-    margin-left: 80px;
+    margin-left: 60px;
     border-radius: 20px;
     margin-top: 30px;
     width: 280px;
