@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ver Cadastro</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
 <body>
-    
+    <h2>Seu Cadastro</h2>
+    <button onclick="gerarPDF()">Gerar PDF com QR Code</button>
+
+    <div id="qrcode" style="display: none;"></div>
+
+    <script>
+        async function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const nome = localStorage.getItem('nome');
+            const email = localStorage.getItem('email');
+            const qrData = `Nome: ${nome}\nEmail: ${email}`;
+
+            if (!nome || !email) {
+                alert('Nenhum cadastro encontrado.');
+                return;
+            }
+
+            const pdf = new jsPDF();
+
+            // Adiciona texto ao PDF
+            pdf.text(`Nome: ${nome}`, 10, 10);
+            pdf.text(`Email: ${email}`, 10, 20);
+
+            // Gera o QR Code
+            const qrCodeCanvas = document.createElement('canvas');
+            await QRCode.toCanvas(qrCodeCanvas, qrData);
+
+            // Adiciona o QR Code ao PDF
+            const qrCodeDataUrl = qrCodeCanvas.toDataURL('image/png');
+            pdf.addImage(qrCodeDataUrl, 'PNG', 10, 30, 50, 50);
+
+            // Salva o PDF
+            pdf.save('cadastro.pdf');
+        }
+    </script>
 </body>
 </html>
