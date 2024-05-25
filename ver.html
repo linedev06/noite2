@@ -6,40 +6,76 @@
     <title>Ver Cadastro</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Alinhar verticalmente */
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px; /* Adicionando margem inferior */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h2>Seu Cadastro</h2>
-    <button onclick="gerarPDF()">Gerar PDF com QR Code</button>
-
-    <div id="qrcode" style="display: none;"></div>
+    <button onclick="gerarPDF()">Baixar PDF com QR Code</button>
 
     <script>
         async function gerarPDF() {
             const { jsPDF } = window.jspdf;
             const nome = localStorage.getItem('nome');
-            const email = localStorage.getItem('email');
-            const qrData = `Nome: ${nome}\nEmail: ${email}`;
+            const cpf = localStorage.getItem('cpf');
+            const dataNascimento = localStorage.getItem('dataNascimento');
+            const rg = localStorage.getItem('rg');
+            const qrData = `Nome: ${nome}\nCPF: ${cpf}\nData de Nascimento: ${dataNascimento}\nRG: ${rg}`;
 
-            if (!nome || !email) {
+            if (!nome || !cpf || !dataNascimento || !rg) {
                 alert('Nenhum cadastro encontrado.');
                 return;
             }
 
             const pdf = new jsPDF();
 
-            // Adiciona texto ao PDF
+           
             pdf.text(`Nome: ${nome}`, 10, 10);
-            pdf.text(`Email: ${email}`, 10, 20);
+            pdf.text(`CPF: ${cpf}`, 10, 20);
+            pdf.text(`Data de Nascimento: ${dataNascimento}`, 10, 30);
+            pdf.text(`RG: ${rg}`, 10, 40);
 
-            // Gera o QR Code
+           
             const qrCodeCanvas = document.createElement('canvas');
             await QRCode.toCanvas(qrCodeCanvas, qrData);
 
-            // Adiciona o QR Code ao PDF
+          
             const qrCodeDataUrl = qrCodeCanvas.toDataURL('image/png');
-            pdf.addImage(qrCodeDataUrl, 'PNG', 10, 30, 50, 50);
+            pdf.addImage(qrCodeDataUrl, 'PNG', 10, 50, 50, 50);
 
-            // Salva o PDF
+          
             pdf.save('cadastro.pdf');
         }
     </script>
