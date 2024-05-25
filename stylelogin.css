@@ -9,7 +9,7 @@ body{
     margin-top: 150px;
 }
 #img{
-    margin-top: 70px;
+    margin-top: -50px;
     display: flex;
     justify-content: center;
     align-items: center;
