@@ -34,11 +34,9 @@ body {
 
 }
 .navbar a {
-    float: left;
     display: block;
     color: black;
     text-align: center;
- 
     text-decoration: none;
 }
 
@@ -64,9 +62,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: inline-block;
     max-width: 600px;
-    animation: fadeInUp 1s ease-in-out;
     color: #000000;
-    text-align: justify; /* Justifica o texto dentro de .content */
+    text-align: justify; 
 }
 
 button {
@@ -77,8 +74,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
-    animation: bounceIn 1s;
+
 }
 
 button:hover {
